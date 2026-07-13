@@ -16,8 +16,6 @@ export default function App() {
     <PromotedAuctions/>
     <NewMarketplace/>
     <UpcomingAuctions/>
-
-
     <ScrollingTicker/>
     <MasterFooter/>
     </>
