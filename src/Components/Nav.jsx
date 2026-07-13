@@ -11,7 +11,6 @@ import sculp from "../assets/sculp.avif";
 import paint from "../assets/paint.avif";
 import pocket from "../assets/pocket.avif";
 
-
 export default function Nav() {
   const [userName, setUserName] = useState("");
   const [greeting, setGreeting] = useState("Welcome");
@@ -23,6 +22,10 @@ export default function Nav() {
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
+  // SMART SCROLL STATES: Tracks visibility based on scroll behavior
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
   // FIXED: Your premium imported variables are now mapped to each gallery group
   const menuImages = {
     "Fine Art": [art1, art2, paint],
@@ -30,6 +33,30 @@ export default function Nav() {
     Furniture: [fur, tele],       
     Collectibles: [rolex, pocket],  
   };
+
+  // SMART SCROLL LOGIC: Detects direction and toggles navbar visibility safely
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      // Always show navbar at the absolute top of the page
+      if (currentScrollY < 10) {
+        setIsVisible(true);
+      } else if (currentScrollY > lastScrollY) {
+        // Scrolling Down -> Fold Up
+        setIsVisible(false);
+        setActiveMenu(null); // Closes mega menu cleanly if open while scrolling down
+      } else {
+        // Scrolling Up -> Pop Up
+        setIsVisible(true);
+      }
+      
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
 
   // The 5-second slide show interval switcher
   useEffect(() => {
@@ -89,11 +116,13 @@ export default function Nav() {
 
   return (
     <>
-      {/* MAIN NAVBAR CONTAINER */}
-      <nav className="fixed top-0 left-0 w-full h-20 bg-white border-b border-neutral-200 z-50 px-6 md:px-12 flex items-center justify-between select-none">
+      {/* MAIN NAVBAR CONTAINER - Added visible translation transitions */}
+      <nav className={`fixed top-0 left-0 w-full h-20 bg-white border-b border-neutral-200 z-50 px-6 md:px-12 flex items-center justify-between select-none transition-transform duration-300 ease-in-out ${
+        isVisible ? "translate-y-0" : "-translate-y-full"
+      }`}>
         {/* Left Side: Christie's Style Serif Logo */}
         <div className="flex items-center">
-          <span className="font-serif text-3xl font-bold tracking-wider text-neutral-900 uppercase cursor-pointer">
+          <span className="font-serif text-2xl font-bold tracking-wider text-neutral-900 uppercase cursor-pointer">
             BidSpirit
           </span>
         </div>
@@ -272,7 +301,7 @@ export default function Nav() {
 
       {/* RE-USABLE ENTRANCE MODAL COMPONENT (Screenshot 2026-07-06 121410.png Layout) */}
       {showModal && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] flex items-center justify-center p-4 transition-opacity duration-300">
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-100 flex items-center justify-center p-4 transition-opacity duration-300">
           <div className="bg-white w-full max-w-md rounded-none px-8 py-12 relative flex flex-col items-center border border-neutral-200">
             {/* Top Right Cross Dismiss Button */}
             <button
