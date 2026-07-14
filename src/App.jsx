@@ -19,6 +19,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Land />} />
           <Route path="/fine-art" element={<FineArt />} />
+          
           <Route path="/antiques" element={<Antiques />} />
           <Route path="/furniture" element={<Furniture />} />
           <Route path="/collectibles" element={<Collectibles />} />
