@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Menu, X, Users } from "lucide-react";
 
 import art1 from "../assets/art1.jpg";
@@ -22,35 +23,83 @@ export default function Nav() {
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  // SMART SCROLL STATES: Tracks visibility based on scroll behavior
+  // SMART SCROLL STATES
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
-  // FIXED: Your premium imported variables are now mapped to each gallery group
-  const menuImages = {
-    "Fine Art": [art1, art2, paint],
-    Antiques: [sculp, vase],
-    Furniture: [fur, tele],       
-    Collectibles: [rolex, pocket],  
+  // VISITOR COUNTER STATES
+  const [visitorCount, setVisitorCount] = useState(142);
+  const [hasCounted, setHasCounted] = useState(false);
+
+  // REALISTIC SUBCATEGORY DATA MATRIX
+  const subcategories = {
+    FineArt: [
+      "Photography",
+      "Posters",
+      "Paintings",
+      "Mixed Media Art",
+      "Sculptures",
+      "Drawings",
+      "Prints",
+    ],
+    Furniture: [
+      "Beds",
+      "Benches & Stools",
+      "Cabinets, Armoires & Cupboards",
+      "Chairs",
+      "Clocks",
+      "Decor & Accessories",
+      "Dressers & Vanities",
+      "Lamps & Lights",
+      "Mirrors",
+      "Rugs & Carpets",
+      "Shelves & Bookcases",
+      "Sofas, Couches & Chaises",
+      "Tables, Stands & Consoles",
+    ],
+    Collectibles: [
+      "Advertising, Paper & Ephemera",
+      "Animation Art",
+      "Antiques",
+      "Autographs",
+      "Books, Maps & Manuscripts",
+      "Coins, Money & Stamps",
+      "Couture, Fashion & Accessories",
+      "Electronics Collectibles",
+      "Historical, Political & Space Collectibles",
+      "Memorabilia",
+      "Military & Wartime Collectibles",
+    ],
+    Antiques: [
+      "Armor & Weapons",
+      "Pre-Columbian Antiquities",
+      "Egyptian Artifacts",
+      "Classical Antiquities",
+      "Folk Art",
+      "Asian Antiques",
+      "Vintage Timepieces",
+    ],
   };
 
-  // SMART SCROLL LOGIC: Detects direction and toggles navbar visibility safely
+  const menuImages = {
+    FineArt: [art1, art2, paint],
+    Antiques: [sculp, vase],
+    Furniture: [fur, tele],
+    Collectibles: [rolex, pocket],
+  };
+
+  // SMART SCROLL LOGIC
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      
-      // Always show navbar at the absolute top of the page
       if (currentScrollY < 10) {
         setIsVisible(true);
       } else if (currentScrollY > lastScrollY) {
-        // Scrolling Down -> Fold Up
         setIsVisible(false);
-        setActiveMenu(null); // Closes mega menu cleanly if open while scrolling down
+        setActiveMenu(null);
       } else {
-        // Scrolling Up -> Pop Up
         setIsVisible(true);
       }
-      
       setLastScrollY(currentScrollY);
     };
 
@@ -58,27 +107,28 @@ export default function Nav() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
 
-  // The 5-second slide show interval switcher
+  // Slideshow preview switcher (5 seconds)
   useEffect(() => {
     if (!activeMenu) {
       setCurrentImageIndex(0);
       return;
     }
-
     const interval = setInterval(() => {
       setCurrentImageIndex((prevIndex) => (prevIndex === 0 ? 1 : 0));
-    }, 5000); // 5000ms = 5 seconds
-
+    }, 5000);
     return () => clearInterval(interval);
   }, [activeMenu]);
 
-  // Mock visitor count for project requirement
-  const visitorCount = 142;
-
-  // Initialize Modal, Geolocation, and Greeting Time Logic
+  // Initialize Session Checks
   useEffect(() => {
-    // Check if user has already entered their name this session
     const storedName = sessionStorage.getItem("bidspirit_user");
+    const countStatus = localStorage.getItem("bidspirit_counted");
+    
+    if (countStatus === "true") {
+      setVisitorCount(143);
+      setHasCounted(true);
+    }
+
     if (!storedName) {
       setShowModal(true);
     } else {
@@ -90,21 +140,27 @@ export default function Nav() {
   const updateGreeting = (name) => {
     const hour = new Date().getHours();
     let timeGreeting = "Welcome";
-
     if (hour < 12) timeGreeting = "Good morning";
     else if (hour < 16) timeGreeting = "Good afternoon";
     else timeGreeting = "Good evening";
-
     setGreeting(`${timeGreeting}, ${name}`);
   };
 
   const handleModalSubmit = (e) => {
     e.preventDefault();
     if (inputName.trim()) {
-      sessionStorage.setItem("bidspirit_user", inputName);
-      setUserName(inputName);
-      updateGreeting(inputName);
+      sessionStorage.setItem("bidspirit_user", inputName.trim());
+      setUserName(inputName.trim());
+      updateGreeting(inputName.trim());
       setShowModal(false);
+    }
+  };
+
+  const handleVisitorIncrement = () => {
+    if (!hasCounted) {
+      setVisitorCount((prev) => prev + 1);
+      setHasCounted(true);
+      localStorage.setItem("bidspirit_counted", "true");
     }
   };
 
@@ -112,237 +168,247 @@ export default function Nav() {
     setClickedLink(linkName);
   };
 
-  const categories = ["Fine Art", "Antiques", "Furniture", "Collectibles"];
+  const categories = ["FineArt", "Antiques", "Furniture", "Collectibles"];
 
   return (
     <>
-      {/* MAIN NAVBAR CONTAINER - Added visible translation transitions */}
-      <nav className={`fixed top-0 left-0 w-full h-20 bg-white border-b border-neutral-200 z-50 px-6 md:px-12 flex items-center justify-between select-none transition-transform duration-300 ease-in-out ${
+      {/* SLIM NAVBAR FRAME */}
+      <nav className={`fixed top-0 left-0 w-full h-14 bg-white border-b border-neutral-200 z-50 px-4 sm:px-6 md:px-12 flex items-center justify-between select-none transition-transform duration-300 ease-in-out ${
         isVisible ? "translate-y-0" : "-translate-y-full"
       }`}>
-        {/* Left Side: Christie's Style Serif Logo */}
-        <div className="flex items-center">
-          <span className="font-serif text-2xl font-bold tracking-wider text-neutral-900 uppercase cursor-pointer">
+        
+        {/* Left Side Logo */}
+        <Link to="/" className="flex items-center">
+          <span className="font-serif text-lg md:text-2xl font-bold tracking-wider text-neutral-900 uppercase cursor-pointer">
             BidSpirit
           </span>
-        </div>
+        </Link>
 
-        {/* Center: Desktop Menu Items with Custom Dot/Underline Hover Architecture */}
-        <div className="hidden lg:flex items-center space-x-8 h-full">
-          {categories.map((item) => (
-            <div
-              key={item}
-              className="relative h-full flex items-center cursor-pointer group"
-              onMouseEnter={() => setActiveMenu(item)}
-              onMouseLeave={() => setActiveMenu(null)}
-              onClick={() => handleLinkClick(item)}
-            >
-              <span
-                className={`font-sans text-lg uppercase tracking-widest transition-colors duration-300 ${
-                  clickedLink === item
-                    ? "text-[#8B1E2F] font-semibold"
-                    : "text-neutral-800 group-hover:text-[#8B1E2F]"
-                }`}
+        {/* Center Links (Now using React Router Link components) */}
+        <div className="hidden lg:flex items-center space-x-6 xl:space-x-8 h-full">
+          {categories.map((item) => {
+            const path = item === "FineArt" ? "/fine-art" : `/${item.toLowerCase()}`;
+
+            return (
+              <Link
+                key={item}
+                to={path}
+                className="relative h-full flex items-center cursor-pointer group"
+                onMouseEnter={() => setActiveMenu(item)}
+                onMouseLeave={() => setActiveMenu(null)}
+                onClick={() => handleLinkClick(item)}
               >
-                {item}
-              </span>
+                <span
+                  className={`font-sans text-[11px] xl:text-lg uppercase tracking-widest transition-colors duration-300 ${
+                    clickedLink === item
+                      ? "text-[#8B1E2F] font-semibold"
+                      : "text-neutral-800 group-hover:text-[#8B1E2F]"
+                  }`}
+                >
+                  {item === "FineArt" ? "Fine Art" : item}
+                </span>
 
-              {/* Custom Hybrid Hover Decorator (Burgundy Line + Center Dot from Pic 2) */}
-              <div className="absolute bottom-0 left-0 w-full h-0.75 bg-[#8B1E2F] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center flex justify-center items-center">
-                <div className="w-2 h-2 rounded-full bg-[#8B1E2F] absolute -top-1.5" />
-              </div>
-            </div>
-          ))}
+                {/* Decorator line indicator */}
+                <div className="absolute bottom-0 left-0 w-full h-0.75 bg-[#8B1E2F] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center flex justify-center items-center">
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#8B1E2F] absolute -top-1" />
+                </div>
+              </Link>
+            );
+          })}
         </div>
 
-        {/* Right Side: Greeting, Burgundy People Count, and Hamburger Menu */}
-        <div className="flex items-center space-x-6">
-          {/* Dynamic Greeting */}
+        {/* Right Side Controls */}
+        <div className="flex items-center space-x-4 md:space-x-6">
           {userName && (
-            <span className="hidden sm:inline font-sans text-base uppercase tracking-wider text-neutral-500 font-medium">
+            <span className="hidden sm:inline font-sans text-[10px] md:text-xs uppercase tracking-wider text-neutral-400 font-medium">
               {greeting}
             </span>
           )}
 
-          {/* Visitor Counter Component (Burgundy People Icon Layout) */}
-          <div className="flex items-center space-x-2 text-[#8B1E2F]">
-            <Users className="w-5 h-5" strokeWidth={2} />
-            <span className="font-sans text-base font-semibold tracking-wide">
+          {/* Interactive Visitor Badge Counter */}
+          <button 
+            onClick={handleVisitorIncrement}
+            disabled={hasCounted}
+            className={`flex items-center space-x-1 md:space-x-1.5 text-[#8B1E2F] transition-all focus:outline-none ${
+              !hasCounted ? "hover:scale-105 cursor-pointer" : "cursor-default opacity-90"
+            }`}
+          >
+            <Users className="w-3.5 h-3.5 md:w-4 h-4" strokeWidth={2.5} />
+            <span className="font-sans text-xs font-bold tracking-wide">
               {visitorCount}
             </span>
-          </div>
+          </button>
 
-          {/* Mobile Hamburguer Action Icon */}
+          {/* Mobile Hamburger Icon */}
           <button
             className="lg:hidden p-1 text-neutral-800 hover:text-neutral-500 transition-colors"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
-            {mobileMenuOpen ? (
-              <X className="w-6 h-6" />
-            ) : (
-              <Menu className="w-6 h-6" />
-            )}
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
 
-        {/* FULL WIDTH MEGA-MENU PANEL (Christie's Expand-Down Architecture) */}
+        {/* EXPANDED DIRECTORY MEGA-PANEL */}
         <div
-          className={`absolute top-20 left-0 w-full bg-white border-b border-neutral-200 shadow-lg transition-all duration-300 ease-in-out transform origin-top ${
-            activeMenu
-              ? "opacity-100 scale-y-100"
-              : "opacity-0 scale-y-0 pointer-events-none"
+          className={`absolute top-14 left-0 w-full bg-white border-b border-neutral-200 shadow-md transition-all duration-300 ease-in-out transform origin-top ${
+            activeMenu ? "opacity-100 scale-y-100" : "opacity-0 scale-y-0 pointer-events-none"
           }`}
           onMouseEnter={() => setActiveMenu(activeMenu)}
           onMouseLeave={() => setActiveMenu(null)}
         >
-          <div className="max-w-7xl mx-auto px-12 py-8 grid grid-cols-4 gap-8">
-            <div>
-              <h4 className="font-sans text-xs font-bold uppercase tracking-widest text-neutral-400 mb-3">
-                Auctions
-              </h4>
-              <ul className="space-y-2 text-sm text-neutral-600 font-light">
-                <li className="hover:text-[#8B1E2F] cursor-pointer transition-colors">
-                  Upcoming Online Auctions
-                </li>
-                <li className="hover:text-[#8B1E2F] cursor-pointer transition-colors">
-                  Completed Auctions
-                </li>
-                <li className="hover:text-[#8B1E2F] cursor-pointer transition-colors">
-                  Sponsored Auctions
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-sans text-xs font-bold uppercase tracking-widest text-neutral-400 mb-3">
-                Highlights
-              </h4>
-              <ul className="space-y-2 text-sm text-neutral-600 font-light">
-                <li className="hover:text-[#8B1E2F] cursor-pointer transition-colors">
-                  Popular Items
-                </li>
-                <li className="hover:text-[#8B1E2F] cursor-pointer transition-colors">
-                  Trending Lots
-                </li>
-                <li className="hover:text-[#8B1E2F] cursor-pointer transition-colors">
-                  Private Collections
-                </li>
-              </ul>
+          <div className="max-w-7xl mx-auto px-6 md:px-12 py-6 grid grid-cols-4 gap-8">
+            
+            {/* Columns 1 & 2: Subcategories */}
+            <div className="col-span-2 grid grid-cols-2 gap-4">
+              <div>
+                <h4 className="font-sans text-[9px] font-bold uppercase tracking-widest text-neutral-400 mb-2">
+                  Marketplace Lots
+                </h4>
+                <ul className="space-y-2 text-xs text-neutral-600 font-normal">
+                  {activeMenu && subcategories[activeMenu]?.slice(0, Math.ceil(subcategories[activeMenu].length / 2)).map((sub, i) => {
+                    const pagePath = activeMenu === "FineArt" ? "fine-art" : activeMenu.toLowerCase();
+                    return (
+                      <li key={i}>
+                        <Link 
+                          to={`/${pagePath}?cat=${sub.toLowerCase().replace(/[^a-z0-9]/g, "-")}`}
+                          className="inline-block w-fit origin-left font-sans text-xs transition-all duration-200 hover:text-[#8B1E2F] hover:font-semibold hover:scale-105 hover:underline"
+                        >
+                          {sub}
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+              <div>
+                <div className="h-4" />
+                <ul className="space-y-2 text-xs text-neutral-600 font-normal">
+                  {activeMenu && subcategories[activeMenu]?.slice(Math.ceil(subcategories[activeMenu].length / 2)).map((sub, i) => {
+                    const pagePath = activeMenu === "FineArt" ? "fine-art" : activeMenu.toLowerCase();
+                    return (
+                      <li key={i}>
+                        <Link 
+                          to={`/${pagePath}?cat=${sub.toLowerCase().replace(/[^a-z0-9]/g, "-")}`}
+                          className="inline-block w-fit origin-left font-sans text-xs transition-all duration-200 hover:text-[#8B1E2F] hover:font-semibold hover:scale-105 hover:underline"
+                        >
+                          {sub}
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
             </div>
 
-            {/* CORRECTED SINGLE INSTANCE EXPLORE COLUMN AND DYNAMIC SLIDESHOW FRAME */}
+            {/* Columns 3 & 4: Preview Slideshow */}
             <div className="col-span-2 border-l border-neutral-100 pl-8 flex items-center justify-between">
               <div>
-                <p className="font-serif text-lg text-neutral-800 italic mb-2">
-                  Explore {activeMenu}
+                <p className="font-serif text-sm md:text-base text-neutral-800 italic mb-1 capitalize">
+                  Explore {activeMenu === "FineArt" ? "Fine Art" : activeMenu}
                 </p>
-                <p className="text-xs text-neutral-400 font-light max-w-xs">
-                  Discover global pieces curated by our network of international
-                  gallery experts.
+                <p className="text-[10px] md:text-[11px] text-neutral-400 font-light max-w-xs leading-relaxed">
+                  Discover global pieces curated by our network of international gallery experts.
                 </p>
               </div>
 
-              <div className="w-36 h-24 bg-neutral-50 rounded border border-neutral-200 flex items-center justify-center overflow-hidden relative shadow-sm">
+              <div className="w-28 h-16 md:w-32 md:h-20 bg-neutral-50 rounded-sm border border-neutral-200 flex items-center justify-center overflow-hidden relative shadow-xs">
                 {activeMenu && menuImages[activeMenu] && (
                   <img
                     src={menuImages[activeMenu][currentImageIndex]}
-                    alt={`${activeMenu} Preview`}
+                    alt="Preview Lot"
                     className="w-full h-full object-cover transition-opacity duration-700 ease-in-out"
                     key={currentImageIndex}
                   />
                 )}
               </div>
             </div>
+
           </div>
         </div>
       </nav>
 
-      {/* MOBILE & TABLET DRAWER (Slides down from Navbar perfectly matching video flow) */}
-      <div
-        className={`fixed top-20 left-0 w-full bg-white border-b border-neutral-200 z-40 transition-all duration-300 ease-in-out transform ${
-          mobileMenuOpen
-            ? "translate-y-0 opacity-100"
-            : "-translate-y-full opacity-0 pointer-events-none"
-        } lg:hidden`}
-      >
-        <div className="px-6 py-6 space-y-4 bg-white">
-          {categories.map((item) => (
-            <div
-              key={item}
-              className="py-3 border-b border-neutral-100 flex items-center justify-between cursor-pointer"
-              onClick={() => {
-                handleLinkClick(item);
-                setMobileMenuOpen(false);
-              }}
-            >
-              <span
-                className={`font-sans text-sm uppercase tracking-widest ${
-                  clickedLink === item
-                    ? "text-[#8B1E2F] font-bold"
-                    : "text-neutral-800"
-                }`}
-              >
-                {item}
-              </span>
-              <span className="text-neutral-300 font-light">&rarr;</span>
-            </div>
-          ))}
+      {/* MOBILE DRAWER */}
+      <div className={`fixed top-14 left-0 w-full bg-white border-b border-neutral-200 z-40 transition-all duration-300 ease-in-out transform ${
+        mobileMenuOpen ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0 pointer-events-none"
+      } lg:hidden`}>
+        <div className="px-6 py-5 bg-white space-y-4">
+          
           {userName && (
-            <div className="pt-4 text-center">
-              <span className="font-sans text-xs uppercase tracking-widest text-neutral-400 block mb-1">
-                Signed in as
+            <div className="pb-2 border-b border-neutral-100">
+              <span className="font-sans text-[10px] uppercase tracking-widest text-neutral-400 block mb-0.5">
+                Portal Connection
               </span>
-              <span className="font-sans text-sm font-semibold tracking-wide text-neutral-800">
+              <span className="font-sans text-xs font-semibold text-[#8B1E2F] tracking-wide">
                 {greeting}
               </span>
             </div>
           )}
+
+          <div className="space-y-2.5">
+            {categories.map((item) => {
+              const path = item === "FineArt" ? "/fine-art" : `/${item.toLowerCase()}`;
+
+              return (
+                <Link
+                  key={item}
+                  to={path}
+                  className="py-1.5 flex items-center justify-between cursor-pointer"
+                  onClick={() => {
+                    handleLinkClick(item);
+                    setMobileMenuOpen(false);
+                  }}
+                >
+                  <span className={`font-sans text-xs uppercase tracking-widest ${
+                    clickedLink === item ? "text-[#8B1E2F] font-bold" : "text-neutral-800"
+                  }`}>
+                    {item === "FineArt" ? "Fine Art" : item}
+                  </span>
+                  <span className="text-neutral-300 text-xs">&rarr;</span>
+                </Link>
+              );
+            })}
+          </div>
+
+          <div className="pt-2 text-center border-t border-neutral-100">
+            <span className="font-sans text-[9px] uppercase tracking-widest text-neutral-400 block">
+              Secure Bidder Connection Active
+            </span>
+          </div>
         </div>
       </div>
 
-      {/* RE-USABLE ENTRANCE MODAL COMPONENT (Screenshot 2026-07-06 121410.png Layout) */}
+      {/* ENTRANCE MODAL */}
       {showModal && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-100 flex items-center justify-center p-4 transition-opacity duration-300">
-          <div className="bg-white w-full max-w-md rounded-none px-8 py-12 relative flex flex-col items-center border border-neutral-200">
-            {/* Top Right Cross Dismiss Button */}
-            <button
-              onClick={() => setShowModal(false)}
-              className="absolute top-4 right-4 text-neutral-400 hover:text-neutral-900 transition-colors"
-            >
-              <X className="w-5 h-5 font-light" strokeWidth={1.5} />
-            </button>
-
-            {/* Premium Header Typographies */}
-            <h2 className="font-serif text-2xl text-neutral-900 text-center tracking-wide mb-2 uppercase">
+        <div className="fixed inset-0 bg-neutral-950/70 backdrop-blur-xs z-100 flex items-center justify-center p-4">
+          <div className="bg-white w-full max-w-sm md:max-w-md rounded-none px-6 py-10 md:px-8 md:py-12 flex flex-col items-center border border-neutral-200 shadow-2xl">
+            
+            <h2 className="font-serif text-lg md:text-xl text-neutral-900 text-center tracking-wide mb-1 uppercase">
               Welcome to BidSpirit
             </h2>
-            <p className="font-sans text-xs text-neutral-400 text-center uppercase tracking-widest mb-8">
-              Fine Art & Luxury Collectibles
+            <p className="font-sans text-[9px] md:text-[10px] text-neutral-400 text-center uppercase tracking-widest mb-8">
+              Fine Art & Luxury Collectibles Portal
             </p>
 
-            {/* Clean Input Form Layout */}
-            <form
-              onSubmit={handleModalSubmit}
-              className="w-full flex flex-col items-center"
-            >
-              <div className="w-full mb-8 relative">
+            <form onSubmit={handleModalSubmit} className="w-full flex flex-col items-center">
+              <div className="w-full mb-8">
                 <input
                   type="text"
                   required
-                  placeholder="Enter your first name"
+                  placeholder="Enter your first name to unlock"
                   value={inputName}
                   onChange={(e) => setInputName(e.target.value)}
-                  className="w-full text-center py-2 font-sans text-base text-neutral-800 placeholder-neutral-300 border-b border-neutral-300 focus:border-neutral-900 outline-none transition-colors bg-transparent"
+                  className="w-full text-center py-2 font-sans text-xs md:text-sm text-neutral-800 placeholder-neutral-300 border-b border-neutral-300 focus:border-neutral-900 outline-none bg-transparent"
                 />
               </div>
 
-              {/* Pill-shaped Solid Signature Button */}
               <button
                 type="submit"
-                className="w-full max-w-xs bg-neutral-950 hover:bg-[#8B1E2F] text-white font-sans text-xs font-semibold uppercase tracking-widest py-3.5 px-6 rounded-full transition-colors duration-300 shadow-md"
+                className="w-full max-w-xs bg-neutral-950 hover:bg-[#8B1E2F] text-white font-sans text-[10px] md:text-xs font-semibold uppercase tracking-widest py-3 px-6 rounded-full transition-colors duration-300 shadow-sm"
               >
-                Enter Gallery
+                Gain Gallery Access
               </button>
             </form>
+
           </div>
         </div>
       )}

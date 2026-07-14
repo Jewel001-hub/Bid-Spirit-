@@ -94,7 +94,7 @@ export default function Hero() {
             {slides[currentSlide].tag}
           </span>
 
-          <h1 className="font-serif text-4xl md:text-6xl font-normal leading-tight tracking-wide">
+          <h1 className="font-serif text-4xl md:text-5xl font-normal leading-tight tracking-wide">
             {slides[currentSlide].title}
           </h1>
 

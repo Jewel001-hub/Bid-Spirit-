@@ -4,24 +4,63 @@ import antiqueAsset from "../assets/sculp.avif";
 import ban2 from "../assets/Ban2.jpg";
 import pocketWatch from "../assets/pocket.avif";
 import marbleBust from "../assets/mab2.jpg";
+import Fur from "../assets/fur.jpg";
+import Gem from "../assets/gem.jpg";
+import Comic from "../assets/comic.jpg";
+import Tribal from "../assets/tribal.jpg";
+import Art from "../assets/art1.jpg"
 
+
+// Restored and expanded to exactly 5 items with category links
 export const promotedAuctions = [
   {
     id: "p1",
+    title: "Exclusive Jewellery Rare Gemstones & Antiques",
+    house: "Simrit Collection",
+    date: "Jul 15, 6:00 PM GMT+1",
+    image: Gem,
+    category: "collectibles", 
+    isLive: true,
+  },
+  {
+    id: "p2",
+    title: "Mid-Century Modern Furniture & Decorative Art",
+    house: "Heritage Auctions",
+    date: "Jul 14, 5:00 PM GMT+1",
+    image: Fur,
+    category: "furniture", 
+    isLive: false,
+  },
+  {
+    id: "p3",
     title: "The Summer Collectibles Auction",
     house: "Goldberg Coins & Collectibles",
     date: "Jul 15, 6:00 PM GMT+1",
     image: lionArt,
+    category: "collectibles",
+    isLive: false,
   },
   {
-    id: "p2",
-    title: "The Glorya Kaufman Collection",
-    house: "Abell Auction",
-    date: "Jul 14, 5:00 PM GMT+1",
-    image: watchAsset,
+    id: "p4",
+    title: "Impressionist & Modern Fine Art Masterpieces",
+    house: "Sotheby's London",
+    date: "Jul 18, 4:00 PM GMT+1",
+    image: antiqueAsset,
+    category: "fineart", 
+    isLive: true,
+  },
+  {
+    id: "p5",
+    title: "Vintage Luxury Timepieces & Pocket Watches",
+    house: "Christie's Geneva",
+    date: "Jul 20, 2:00 PM GMT+1",
+    image: pocketWatch,
+    category: "collectibles",
+    isLive: false,
   }
 ];
 
+// Restored for NewMarketPlace.jsx to read!
 export const marketplaceItems = [
   {
     id: "m1",
@@ -29,7 +68,7 @@ export const marketplaceItems = [
     house: "Landy Pop...",
     date: "Jul 15, 11:00 PM GMT+1",
     location: "Millville, MA, US",
-    image: ban2,
+    image: Comic,
   },
   {
     id: "m2",
@@ -37,7 +76,7 @@ export const marketplaceItems = [
     house: "GAILER...",
     date: "Jul 11, 9:00 AM GMT+1",
     location: "Breitbrunn am Chiemsee, DE",
-    image: antiqueAsset,
+    image: Tribal,
   },
   {
     id: "m3",
@@ -45,7 +84,7 @@ export const marketplaceItems = [
     house: "Auction Lisbon",
     date: "Jul 9, 3:00 PM GMT+1",
     location: "Amadora, Portugal",
-    image: pocketWatch,
+    image: Art,
   }
 ];
 

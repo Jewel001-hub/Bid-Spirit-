@@ -1,10 +1,23 @@
 import React, { useState } from "react";
 import BidModal from "./BidModal";
+import lionArt from "../assets/Ban2.jpg";
+import watchAsset from "../assets/pocket.avif";
+import antiqueAsset from "../assets/mab2.jpg";
+import Necklace from "../assets/neck.jpg";
+import  Telescope  from "../assets/tele.jpg";
+import Coin from "../assets/image.png"
+import Perfume from "../assets/perf.png"
+import Jug from "../assets/jug.png"
 
-// Expanded to 8 distinct premium rows matching the structural design perfectly
+
+
+
+
+
 const localUpcomingAuctions = [
   {
     id: "u1",
+    coverImage: Jug,
     title: "Exclusive Jewellery Rare Gemstones & Antiques 2",
     house: "Simrit Collection",
     rating: 4.9,
@@ -12,16 +25,17 @@ const localUpcomingAuctions = [
     date: "July 12, 10:00 PM GMT+1",
     location: "BOISE, ID, US",
     isTimed: true,
-    tagType: null, // Clean row
+    tagType: null, 
     featuredItems: [
-      { id: "f1", aspect: "aspect-[4/3]", type: "wide" },
-      { id: "f2", aspect: "aspect-[3/4]", type: "tall" },
-      { id: "f3", aspect: "aspect-square", type: "square" },
-      { id: "f4", aspect: "aspect-[16/9]", type: "wide" },
+      { id: "f1", aspect: "aspect-[4/3]", type: "wide", itemImage: Necklace },
+      { id: "f2", aspect: "aspect-[3/4]", type: "tall", itemImage: Telescope },
+      { id: "f3", aspect: "aspect-square", type: "square", itemImage: Coin },
+      { id: "f4", aspect: "aspect-[16/9]", type: "wide", itemImage: Perfume },
     ]
   },
   {
     id: "u2",
+    coverImage: watchAsset,
     title: "Universal Masters: Eastern-Western Paintings & Fine Asian Decorative Arts",
     house: "Hotspot Auctions",
     rating: 4.7,
@@ -31,13 +45,14 @@ const localUpcomingAuctions = [
     isTimed: false,
     tagType: null,
     featuredItems: [
-      { id: "f5", aspect: "aspect-square", type: "square" },
-      { id: "f6", aspect: "aspect-[4/3]", type: "wide" },
-      { id: "f7", aspect: "aspect-[3/5]", type: "tall" },
+      { id: "f5", aspect: "aspect-square", type: "square", itemImage: watchAsset },
+      { id: "f6", aspect: "aspect-[4/3]", type: "wide", itemImage: watchAsset },
+      { id: "f7", aspect: "aspect-[3/5]", type: "tall", itemImage: watchAsset },
     ]
   },
   {
     id: "u3",
+    coverImage: antiqueAsset,
     title: "Fine Asian Art I & Imperial Porcelain Masterpieces",
     house: "Nagel Auction",
     rating: 4.8,
@@ -47,13 +62,14 @@ const localUpcomingAuctions = [
     isTimed: false,
     tagType: null,
     featuredItems: [
-      { id: "f8", aspect: "aspect-[3/4]", type: "tall" },
-      { id: "f9", aspect: "aspect-square", type: "square" },
-      { id: "f10", aspect: "aspect-[4/3]", type: "wide" },
+      { id: "f8", aspect: "aspect-[3/4]", type: "tall", itemImage: antiqueAsset },
+      { id: "f9", aspect: "aspect-square", type: "square", itemImage: antiqueAsset },
+      { id: "f10", aspect: "aspect-[4/3]", type: "wide", itemImage: antiqueAsset },
     ]
   },
   {
     id: "u4",
+    coverImage: lionArt,
     title: "Decorative Arts, Mid-Century Modern Design & Sculptures",
     house: "Leonard Joel",
     rating: 4.6,
@@ -61,16 +77,17 @@ const localUpcomingAuctions = [
     date: "July 13, 9:00 AM GMT+1",
     location: "Hawthorn, Australia",
     isTimed: false,
-    tagType: "lively-featured", // MIDDLE ROW: Gets the active animated coily tag
+    tagType: "lively-featured", 
     featuredItems: [
-      { id: "f11", aspect: "aspect-square", type: "square" },
-      { id: "f12", aspect: "aspect-[4/3]", type: "wide" },
-      { id: "f13", aspect: "aspect-[3/4]", type: "tall" },
-      { id: "f14", aspect: "aspect-[16/9]", type: "wide" },
+      { id: "f11", aspect: "aspect-square", type: "square", itemImage: lionArt },
+      { id: "f12", aspect: "aspect-[4/3]", type: "wide", itemImage: lionArt },
+      { id: "f13", aspect: "aspect-[3/4]", type: "tall", itemImage: lionArt },
+      { id: "f14", aspect: "aspect-[16/9]", type: "wide", itemImage: lionArt },
     ]
   },
   {
     id: "u5",
+    coverImage: watchAsset,
     title: "Ethical Diamonds, Rare Emeralds & High Luxury Gemstones",
     house: "Ozbid Auctions",
     rating: 4.4,
@@ -80,13 +97,14 @@ const localUpcomingAuctions = [
     isTimed: true,
     tagType: null,
     featuredItems: [
-      { id: "f15", aspect: "aspect-[4/3]", type: "wide" },
-      { id: "f16", aspect: "aspect-square", type: "square" },
-      { id: "f17", aspect: "aspect-[3/4]", type: "tall" },
+      { id: "f15", aspect: "aspect-[4/3]", type: "wide", itemImage: watchAsset },
+      { id: "f16", aspect: "aspect-square", type: "square", itemImage: watchAsset },
+      { id: "f17", aspect: "aspect-[3/4]", type: "tall", itemImage: watchAsset },
     ]
   },
   {
     id: "u6",
+    coverImage: antiqueAsset,
     title: "Summer Jewels & Midsummer Prestige Collection",
     house: "Finarte",
     rating: 4.3,
@@ -96,13 +114,14 @@ const localUpcomingAuctions = [
     isTimed: false,
     tagType: null,
     featuredItems: [
-      { id: "f18", aspect: "aspect-square", type: "square" },
-      { id: "f19", aspect: "aspect-[16/9]", type: "wide" },
-      { id: "f20", aspect: "aspect-[3/4]", type: "tall" },
+      { id: "f18", aspect: "aspect-square", type: "square", itemImage: antiqueAsset },
+      { id: "f19", aspect: "aspect-[16/9]", type: "wide", itemImage: antiqueAsset },
+      { id: "f20", aspect: "aspect-[3/4]", type: "tall", itemImage: antiqueAsset },
     ]
   },
   {
     id: "u7",
+    coverImage: lionArt,
     title: "Persian & Oriental Carpets, Fine Art & Antique Estates",
     house: "5th Avenue Auctioneers",
     rating: 4.5,
@@ -112,13 +131,14 @@ const localUpcomingAuctions = [
     isTimed: true,
     tagType: null,
     featuredItems: [
-      { id: "f21", aspect: "aspect-[4/3]", type: "wide" },
-      { id: "f22", aspect: "aspect-[3/4]", type: "tall" },
-      { id: "f23", aspect: "aspect-square", type: "square" },
+      { id: "f21", aspect: "aspect-[4/3]", type: "wide", itemImage: lionArt },
+      { id: "f22", aspect: "aspect-[3/4]", type: "tall", itemImage: lionArt },
+      { id: "f23", aspect: "aspect-square", type: "square", itemImage: lionArt },
     ]
   },
   {
     id: "u8",
+    coverImage: watchAsset,
     title: "Historical Collectibles, Rare Comics & Sports Trading Cards",
     house: "Saco River Auction",
     rating: 4.7,
@@ -126,12 +146,12 @@ const localUpcomingAuctions = [
     date: "July 13, 7:00 PM GMT+1",
     location: "Scarborough, ME, US",
     isTimed: false,
-    tagType: "lively-premium", // LAST ROW: Gets a distinct glowing premium style
+    tagType: "lively-premium", 
     featuredItems: [
-      { id: "f24", aspect: "aspect-[3/4]", type: "tall" },
-      { id: "f25", aspect: "aspect-square", type: "square" },
-      { id: "f26", aspect: "aspect-[4/3]", type: "wide" },
-      { id: "f27", aspect: "aspect-[3/5]", type: "tall" },
+      { id: "f24", aspect: "aspect-[3/4]", type: "tall", itemImage: watchAsset },
+      { id: "f25", aspect: "aspect-square", type: "square", itemImage: watchAsset },
+      { id: "f26", aspect: "aspect-[4/3]", type: "wide", itemImage: watchAsset },
+      { id: "f27", aspect: "aspect-[3/5]", type: "tall", itemImage: watchAsset },
     ]
   }
 ];
@@ -188,8 +208,16 @@ export default function UpcomingAuctions() {
 
               {/* 2. MAIN COVER IMAGE CONTAINER */}
               <div className="order-2 md:order-0 md:col-start-1 md:row-start-1 md:row-span-2 w-full shrink-0">
-                <div className="w-full h-37.5 md:h-40 bg-neutral-100 border border-neutral-200 rounded-sm flex items-center justify-center relative overflow-hidden group">
-                  <span className="text-neutral-400 font-serif text-xs italic tracking-wider">Catalog Cover</span>
+                <div className="w-full h-37.5 md:h-40 bg-neutral-100 border border-neutral-200 flex items-center justify-center relative overflow-hidden group cursor-pointer">
+                  {auction.coverImage ? (
+                    <img 
+                      src={auction.coverImage} 
+                      alt={`${auction.title} catalog cover`} 
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  ) : (
+                    <span className="text-neutral-400 font-serif text-xs italic tracking-wider">Catalog Cover</span>
+                  )}
                   <div className="absolute inset-0 bg-neutral-950/0 group-hover:bg-neutral-950/5 transition-colors" />
                 </div>
               </div>
@@ -223,9 +251,9 @@ export default function UpcomingAuctions() {
                 </button>
               </div>
 
-              {/* 4. THE ASSETS THUMBNAIL TRACK (Shifts right on desktop under text column) */}
+              {/* 4. THE ASSETS THUMBNAIL TRACK */}
               <div className="order-3 md:order-0 md:col-start-2 md:col-span-2 md:row-start-2 mt-4 relative w-full">
-                <div className="flex items-end gap-3.5 overflow-x-auto pb-3 pt-2 scrollbar-none snap-x">
+                <div className="flex items-end gap-10 overflow-x-auto pb-3 pt-2 scrollbar-none snap-x">
                   {auction.featuredItems.map((item) => (
                     <div 
                       key={item.id} 
@@ -244,14 +272,21 @@ export default function UpcomingAuctions() {
                         </span>
                       )}
 
-                      {/* If row doesn't have a tag, it stays completely plain and clean as requested */}
                       {!auction.tagType && <div className="h-4" />}
 
                       {/* Dynamic Sizing Shape Box Base */}
                       <div className={`h-16.25 md:h-18.75 ${item.aspect} bg-neutral-50 border border-neutral-200 p-1 flex items-center justify-center hover:border-neutral-800 transition-colors shadow-2xs cursor-pointer`}>
-                        <div className="w-full h-full bg-neutral-200/60 rounded-xs flex items-center justify-center text-[9px] font-sans font-light text-neutral-400 capitalize px-2 text-center">
-                          {item.type}
-                        </div>
+                        {item.itemImage ? (
+                          <img 
+                            src={item.itemImage} 
+                            alt="Featured item lot thumbnail" 
+                            className="w-full h-full object-cover "
+                          />
+                        ) : (
+                          <div className="w-full h-full bg-neutral-200/60 rounded-xs flex items-center justify-center text-[9px] font-sans font-light text-neutral-400 capitalize px-2 text-center">
+                            {item.type}
+                          </div>
+                        )}
                       </div>
                     </div>
                   ))}

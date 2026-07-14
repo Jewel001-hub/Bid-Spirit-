@@ -46,7 +46,7 @@ export default function ScrollingTicker() {
           <span> DATE: {currentDate}</span>
           <span> CURRENT TIME: {time}</span>
           <span> BIDDER LOCATION: {location}</span>
-          <span className="text-amber-400">● PORTAL ONLINE SECURE CONNECTION ENABLED</span>
+          <span className="text-[#8B1E2F]">● PORTAL ONLINE SECURE CONNECTION ENABLED</span>
         </div>
         
         <div className="animate-marquee flex gap-12 shrink-0" aria-hidden="true">
