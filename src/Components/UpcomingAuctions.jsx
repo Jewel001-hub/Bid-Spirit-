@@ -6,7 +6,7 @@ import antiqueAsset from "../assets/mab2.jpg";
 import Necklace from "../assets/neck.jpg";
 import  Telescope  from "../assets/tele.jpg";
 import Coin from "../assets/image.png"
-import Perfume from "../assets/perf.png"
+import Perfume from "../assets/Perf.png"
 import Jug from "../assets/jug.png"
 
 
