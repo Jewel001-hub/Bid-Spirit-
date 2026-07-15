@@ -22,12 +22,13 @@ export default function MasterFooter() {
   return (
     <footer className="w-full text-white select-none">
       {/* ========================================================
-          TIER 1: BID ON-THE-GO BANNER (ZERO BOTTOM SPACE)
-         ======================================================== */}
+          TIER 1: BID ON-THE-GO BANNER (REMOVED PHONE ON MOBILE)
+          ======================================================== */}
       <div className="bg-[#F4F4F4] text-neutral-900 pt-6 md:pt-8 pb-0 px-4 md:px-12 lg:px-24 border-b border-neutral-200">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-          {/* Left Side: Phones sitting directly on the bottom border */}
-          <div className="w-full md:w-1/2 flex justify-center items-end h-48 md:h-56 overflow-hidden">
+          
+          {/* Left Side: Phones - HIDDEN on mobile ('hidden'), VISIBLE on md/lg ('md:flex') */}
+          <div className="hidden md:flex md:w-1/2 justify-center items-end h-48 md:h-56 overflow-hidden">
             <img
               src={dualPhone}
               alt="Invaluable App Mockups"
@@ -35,12 +36,12 @@ export default function MasterFooter() {
             />
           </div>
 
-          {/* Right Side: Action Text & Compact Swapped Badges */}
+          {/* Right Side: Action Text & Compact Swapped Badges - Full width on mobile ('w-full md:w-1/2') */}
           <div className="w-full md:w-1/2 space-y-3 text-center md:text-left pb-6 md:pb-8">
             <h3 className="font-sans text-xl md:text-2xl font-normal tracking-tight text-neutral-900">
               Bid On-the-Go!
             </h3>
-            <p className="font-sans text-xs md:text-sm text-neutral-600 max-w-sm leading-relaxed">
+            <p className="font-sans text-xs md:text-sm text-neutral-600 max-w-sm mx-auto md:mx-0 leading-relaxed">
               Download the BidSpirit app and never miss an auction from your
               iOS or Android device.
             </p>
@@ -70,7 +71,7 @@ export default function MasterFooter() {
 
       {/* ========================================================
           TIER 2: SOCIAL MEDIA BAR (BIGGER ICONS & MORE SPACE)
-         ======================================================== */}
+          ======================================================== */}
       <div className="bg-[#8B1E2F] py-5 px-4 md:px-12 lg:px-24">
         <div className="max-w-7xl mx-auto flex justify-center items-center gap-12">
           <a
@@ -99,9 +100,10 @@ export default function MasterFooter() {
           </a>
         </div>
       </div>
+
       {/* ========================================================
           TIER 3: THE DIRECTORY, CONTACT, & BRANDED FEEDBACK
-         ======================================================== */}
+          ======================================================== */}
       <div className="bg-[#0A0A0A] pt-16 pb-8 px-4 md:px-12 lg:px-24 border-t border-neutral-900">
         <div className="max-w-7xl mx-auto">
           
@@ -159,7 +161,7 @@ export default function MasterFooter() {
               </ul>
             </div>
 
-            {/* Column 4: Contact & Corporate Info (Perfect Horizontal Grid Layout) */}
+            {/* Column 4: Contact & Corporate Info */}
             <div className="flex flex-col space-y-4">
               <h3 className="font-serif text-lg md:text-xl font-medium tracking-wide text-white">
                 Contact & Corporate Info

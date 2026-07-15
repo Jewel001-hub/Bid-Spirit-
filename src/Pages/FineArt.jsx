@@ -1,18 +1,171 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { X, SearchCode, ShieldCheck, Heart, ArrowLeft, ArrowRight, ChevronDown } from 'lucide-react';
-
-// Swap these with your local assets as needed
+import pencil from "../assets/pencil.jpg";
+import draw from "../assets/draw2.png";
+import draw2 from "../assets/draw.jpg";
+import mix1 from "../assets/mix1.jpg";
+import mix2 from "../assets/mix2.jpg";
+import mix3 from "../assets/mix3.jpg";
+import mix4 from "../assets/mix4.jpg";
+import mix5 from "../assets/mix5.jpg";
 import sculp from "../assets/sculp.avif";
 import vase from "../assets/vase.jpg";
+import hands from "../assets/hands.jpg";
+import char3 from "../assets/char3.jpg";
+import pen from "../assets/pen.jpg";
 
 const FINE_ART_ITEMS = [
-  // DRAWINGS (6 Items)
-  { id: 1, title: "Study of a Male Torso", origin: "Italian School, c. 17th Century", category: "drawings", image: "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=600", images: ["https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=600"], basePrice: 4500, currentBid: 5200, bidsCount: 8, estimate: "$5,000 - $7,000", description: "Red and white chalk on tinted paper. Features a collector's mark bottom right." },
-  { id: 2, title: "Architectural Capriccio", origin: "French School, c. 18th Century", category: "drawings", image: "https://images.unsplash.com/photo-1579783928621-7a13d66a6211?w=600", images: ["https://images.unsplash.com/photo-1579783928621-7a13d66a6211?w=600"], basePrice: 3200, currentBid: 3200, bidsCount: 0, estimate: "$4,000 - $6,000", description: "Pen and brown ink with gray wash. Depicts classical ruins with figures." },
-  
-  // MIXED MEDIA (5 Items)
-  { id: 7, title: "Abstract Composition No. 4", origin: "Modernist School, c. 1950", category: "mixed-media-art", image: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=600", images: ["https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=600"], basePrice: 6000, currentBid: 6800, bidsCount: 12, estimate: "$7,500 - $10,000", description: "Gouache, charcoal, and collaged elements on heavy board. Signed lower left." },
+  // DRAWINGS 
+  { 
+    id: 1, 
+    title: "Study of a Classical Head",
+    origin: "Italian School, c. 17th Century", 
+    category: "drawings", 
+    image: pencil, 
+    images: [pencil], 
+    basePrice: 4500, 
+    currentBid: 5200, 
+    bidsCount: 8, 
+    estimate: "$5,000 - $7,000", 
+    description: "Graphite and charcoal study of a classical bust. Beautiful contrast with rich chiaroscuro rendering." 
+  },
+{ 
+    id: 2, 
+    title: "Evanescent Mind", 
+    origin: "Contemporary School", 
+    category: "drawings", 
+    image: draw, 
+    images: [draw2], 
+    basePrice: 3200, 
+    currentBid: 3200, 
+    bidsCount: 0, 
+    estimate: "$4,000 - $6,000", 
+    description: "Exquisite pen and black ink drawing on paper. Features a surrealist portrait dissolving into fluid, smoke-like linework and intricate organic patterns." 
+  },
+{ 
+    id: 3, 
+    title: "Faded Echoes", 
+    origin: "Contemporary School", 
+    category: "drawings", 
+    image: draw2, 
+    images: [draw], 
+    basePrice: 3200, 
+    currentBid: 3200, 
+    bidsCount: 0, 
+    estimate: "$4,000 - $6,000", 
+    description: "Striking charcoal and graphite study on heavy archival paper. Depicts a serene, closed-eye portrait fractured by realistic, sharp trompe-l'œil plaster cracks." 
+  },
+
+  { 
+    id: 4, 
+    title: "Anatomical Study of Hands", 
+    origin: "Florentine School, c. 16th Century", 
+    category: "drawings", 
+    image: hands,
+    images: hands, 
+    basePrice: 5500, 
+    currentBid: 6200, 
+    bidsCount: 5, 
+    estimate: "$6,000 - $8,000", 
+    description: "Sanguine (red chalk) on buff paper. A masterfully executed academic sheet depicting various expressive hand gestures with soft, volumetric modeling." 
+  },
+
+  { 
+    id: 5, 
+    title: "Portrait Study of a Youth", 
+    origin: "Mitrovský School, c. 1894", 
+    category: "drawings", 
+    image: char3, 
+    images: char3, 
+    basePrice: 2800, 
+    currentBid: 3100, 
+    bidsCount: 3, 
+    estimate: "$3,500 - $5,000", 
+    description: "Deep, rich charcoal drawing on heavy fibrous paper. Features powerful tonal shifts, visible paper tearing details, and a raw, haunting gaze." 
+  },
+
+  { 
+    id: 6, 
+    title: "Gestural Contour No. 9", 
+    origin: "Modernist School, c. 1965", 
+    category: "drawings", 
+    image: pen, 
+    images: pen,
+    basePrice: 1900, 
+    currentBid: 2400, 
+    bidsCount: 7, 
+    estimate: "$2,500 - $3,500", 
+    description: "Minimalist black Indian ink on heavy cold-pressed watercolor paper. Signed and dated by the artist, showing clean gestural control and elegant negative space." 
+  },
+  // MIXED MEDIA 
+{ 
+    id: 7, 
+    title: "Tension and Flow", 
+    origin: "Abstract Expressionist School, c. 1968", 
+    category: "mixed-media-art", 
+    image: mix1, 
+    images: mix1,
+    basePrice: 3800, 
+    currentBid: 4100, 
+    bidsCount: 5, 
+    estimate: "$4,500 - $6,500", 
+    description: "Mixed media piece combining vibrant acrylic wash, hand-stitchings, and textured paper collage on heavy illustration board." 
+  },
+
+  { 
+    id: 8, 
+    title: "Chrysanthemum Study No. 12", 
+    origin: "Secessionist Movement, c. 1905", 
+    category: "mixed-media-art", 
+    image: mix3, 
+    images:mix3, 
+    basePrice: 5000, 
+    currentBid: 5000, 
+    bidsCount: 0, 
+    estimate: "$6,000 - $9,000", 
+    description: "Watercolor, gold leaf, and graphite on hand-toned Japanese mulberry paper." 
+  },{ 
+    id: 9, 
+    title: "Shadow of the Self", 
+    origin: "Neo-Expressionist School", 
+    category: "mixed-media-art", 
+    image: mix2, 
+    images: mix2, 
+    basePrice: 7200, 
+    currentBid: 8400, 
+    bidsCount: 9, 
+    estimate: "$9,000 - $12,000", 
+    description: "Charcoal, oil-stick, and archival newspaper collage on heavy raw canvas." 
+  },
+
+  { 
+    id: 10, 
+    title: "Urban Palimpsest II", 
+    origin: "Contemporary School", 
+    category: "mixed-media-art", 
+    image: mix4, 
+    images: mix4, 
+    basePrice: 4200, 
+    currentBid: 4500, 
+    bidsCount: 4, 
+    estimate: "$5,000 - $7,000", 
+    description: "Torn street flyers, screenprint ink, and heavy acrylic modeling paste on wood panel." 
+  },
+
+  { 
+    id: 11, 
+    title: "Abstract Composition No. 4", 
+    origin: "Modernist School, c. 1950", 
+    category: "mixed-media-art", 
+    image: mix5, 
+    images: mix5, 
+    basePrice: 6000, 
+    currentBid: 6800, 
+    bidsCount: 12, 
+    estimate: "$7,500 - $10,000", 
+    description: "Gouache, charcoal, and collaged elements on heavy board. Signed lower left." 
+  },
 
   // PAINTINGS (10 Items)
   { id: 12, title: "Portrait of a Lady in Blue", origin: "Flemish School, c. 1650", category: "paintings", image: "https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=600", images: ["https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=600", "https://images.unsplash.com/photo-1580136579312-94651dfd596d?w=600"], basePrice: 28000, currentBid: 31500, bidsCount: 19, estimate: "$35,000 - $45,000", description: "Oil on canvas. Features exquisite detail on lace collar and gold jewelry accents." },

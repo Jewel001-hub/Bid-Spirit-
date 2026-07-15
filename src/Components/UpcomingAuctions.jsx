@@ -1,18 +1,43 @@
 import React, { useState } from "react";
 import BidModal from "./BidModal";
-import lionArt from "../assets/Ban2.jpg";
+import lionArt from "../assets/Ban.jpg";
 import watchAsset from "../assets/pocket.avif";
 import antiqueAsset from "../assets/mab2.jpg";
+import Watch from "../assets/rolex.jpg";
+import Pearl from "../assets/pearl.jpg";
+import Pendant from "../assets/pendant.jpg";
+import Brace from "../assets/Brace.jpg";
 import Necklace from "../assets/neck.jpg";
-import  Telescope  from "../assets/tele.jpg";
-import Coin from "../assets/image.png"
-import Perfume from "../assets/Perf.png"
-import Jug from "../assets/jug.png"
-
-
-
-
-
+import Telescope from "../assets/tele.jpg";
+import Coin from "../assets/image.png";
+import Diamonds from "../assets/Diamonds.png";
+import Perfume from "../assets/Perf.png";
+import Jug from "../assets/jug.png";
+import Asian from "../assets/asian.jpg";
+import Gold from "../assets/Gold.jpg";
+import Calli from "../assets/cal.avif";
+import Bud from "../assets/Bud.avif";
+import Japan from "../assets/japan.avif";
+import Chinese from "../assets/chinese.avif";
+import Modern from "../assets/modern.avif";
+import Teletop from "../assets/teletop.avif";
+import Brass from "../assets/brass.avif";
+import Abs from "../assets/abstract.avif";
+import Pot from "../assets/pot.jpg";
+import Dragon from "../assets/dragon.jpg";
+import Rings from "../assets/Ring2.jpg";
+import Persian from "../assets/persian.jpg";
+import Rug from "../assets/rug2.jpg";
+import Neck from "../assets/necklace.jpg";
+import Oil from "../assets/oil.jpg";
+import Vintage from "../assets/vintage.jpg";
+import Comic2 from "../assets/comic2.jpg";
+import Coin2 from "../assets/coin2.jpg";
+import Maps from "../assets/map.jpg";
+import Gloves from "../assets/gloves.jpg";
+import Sports from "../assets/sports.jpg";
+import Jade from "../assets/jade.png";
+import { Diamond } from "lucide-react";
 
 const localUpcomingAuctions = [
   {
@@ -35,7 +60,7 @@ const localUpcomingAuctions = [
   },
   {
     id: "u2",
-    coverImage: watchAsset,
+    coverImage: Bud,
     title: "Universal Masters: Eastern-Western Paintings & Fine Asian Decorative Arts",
     house: "Hotspot Auctions",
     rating: 4.7,
@@ -45,14 +70,14 @@ const localUpcomingAuctions = [
     isTimed: false,
     tagType: null,
     featuredItems: [
-      { id: "f5", aspect: "aspect-square", type: "square", itemImage: watchAsset },
-      { id: "f6", aspect: "aspect-[4/3]", type: "wide", itemImage: watchAsset },
-      { id: "f7", aspect: "aspect-[3/5]", type: "tall", itemImage: watchAsset },
+      { id: "f5", aspect: "aspect-square", type: "square", itemImage: Calli },
+      { id: "f6", aspect: "aspect-[4/3]", type: "wide", itemImage: Pot },
+      { id: "f7", aspect: "aspect-[3/5]", type: "tall", itemImage: Asian },
     ]
   },
   {
     id: "u3",
-    coverImage: antiqueAsset,
+    coverImage: Chinese,
     title: "Fine Asian Art I & Imperial Porcelain Masterpieces",
     house: "Nagel Auction",
     rating: 4.8,
@@ -62,14 +87,14 @@ const localUpcomingAuctions = [
     isTimed: false,
     tagType: null,
     featuredItems: [
-      { id: "f8", aspect: "aspect-[3/4]", type: "tall", itemImage: antiqueAsset },
-      { id: "f9", aspect: "aspect-square", type: "square", itemImage: antiqueAsset },
-      { id: "f10", aspect: "aspect-[4/3]", type: "wide", itemImage: antiqueAsset },
+      { id: "f8", aspect: "aspect-[3/4]", type: "tall", itemImage: Dragon},
+      { id: "f9", aspect: "aspect-square", type: "square", itemImage: Jade },
+      { id: "f10", aspect: "aspect-[4/3]", type: "wide", itemImage: Japan },
     ]
   },
   {
     id: "u4",
-    coverImage: lionArt,
+    coverImage: Modern,
     title: "Decorative Arts, Mid-Century Modern Design & Sculptures",
     house: "Leonard Joel",
     rating: 4.6,
@@ -80,14 +105,14 @@ const localUpcomingAuctions = [
     tagType: "lively-featured", 
     featuredItems: [
       { id: "f11", aspect: "aspect-square", type: "square", itemImage: lionArt },
-      { id: "f12", aspect: "aspect-[4/3]", type: "wide", itemImage: lionArt },
-      { id: "f13", aspect: "aspect-[3/4]", type: "tall", itemImage: lionArt },
-      { id: "f14", aspect: "aspect-[16/9]", type: "wide", itemImage: lionArt },
+      { id: "f12", aspect: "aspect-[4/3]", type: "wide", itemImage: Abs },
+      { id: "f13", aspect: "aspect-[3/4]", type: "tall", itemImage: Teletop },
+      { id: "f14", aspect: "aspect-[16/9]", type: "wide", itemImage:Brass },
     ]
   },
   {
     id: "u5",
-    coverImage: watchAsset,
+    coverImage: Neck,
     title: "Ethical Diamonds, Rare Emeralds & High Luxury Gemstones",
     house: "Ozbid Auctions",
     rating: 4.4,
@@ -97,14 +122,14 @@ const localUpcomingAuctions = [
     isTimed: true,
     tagType: null,
     featuredItems: [
-      { id: "f15", aspect: "aspect-[4/3]", type: "wide", itemImage: watchAsset },
-      { id: "f16", aspect: "aspect-square", type: "square", itemImage: watchAsset },
-      { id: "f17", aspect: "aspect-[3/4]", type: "tall", itemImage: watchAsset },
+      { id: "f15", aspect: "aspect-[4/3]", type: "wide", itemImage: Diamonds },
+      { id: "f16", aspect: "aspect-square", type: "square", itemImage: Gold },
+      { id: "f17", aspect: "aspect-[3/4]", type: "tall", itemImage: Rings },
     ]
   },
   {
     id: "u6",
-    coverImage: antiqueAsset,
+    coverImage: Watch,
     title: "Summer Jewels & Midsummer Prestige Collection",
     house: "Finarte",
     rating: 4.3,
@@ -114,14 +139,14 @@ const localUpcomingAuctions = [
     isTimed: false,
     tagType: null,
     featuredItems: [
-      { id: "f18", aspect: "aspect-square", type: "square", itemImage: antiqueAsset },
-      { id: "f19", aspect: "aspect-[16/9]", type: "wide", itemImage: antiqueAsset },
-      { id: "f20", aspect: "aspect-[3/4]", type: "tall", itemImage: antiqueAsset },
+      { id: "f18", aspect: "aspect-square", type: "square", itemImage: Pearl },
+      { id: "f19", aspect: "aspect-[16/9]", type: "wide", itemImage: Brace },
+      { id: "f20", aspect: "aspect-[3/4]", type: "tall", itemImage: Pendant },
     ]
   },
   {
     id: "u7",
-    coverImage: lionArt,
+    coverImage: Persian,
     title: "Persian & Oriental Carpets, Fine Art & Antique Estates",
     house: "5th Avenue Auctioneers",
     rating: 4.5,
@@ -131,14 +156,14 @@ const localUpcomingAuctions = [
     isTimed: true,
     tagType: null,
     featuredItems: [
-      { id: "f21", aspect: "aspect-[4/3]", type: "wide", itemImage: lionArt },
-      { id: "f22", aspect: "aspect-[3/4]", type: "tall", itemImage: lionArt },
-      { id: "f23", aspect: "aspect-square", type: "square", itemImage: lionArt },
+      { id: "f21", aspect: "aspect-[4/3]", type: "wide", itemImage: Vintage },
+      { id: "f22", aspect: "aspect-[3/4]", type: "tall", itemImage: Oil },
+      { id: "f23", aspect: "aspect-square", type: "square", itemImage: Rug },
     ]
   },
   {
     id: "u8",
-    coverImage: watchAsset,
+    coverImage: Sports,
     title: "Historical Collectibles, Rare Comics & Sports Trading Cards",
     house: "Saco River Auction",
     rating: 4.7,
@@ -148,10 +173,10 @@ const localUpcomingAuctions = [
     isTimed: false,
     tagType: "lively-premium", 
     featuredItems: [
-      { id: "f24", aspect: "aspect-[3/4]", type: "tall", itemImage: watchAsset },
-      { id: "f25", aspect: "aspect-square", type: "square", itemImage: watchAsset },
-      { id: "f26", aspect: "aspect-[4/3]", type: "wide", itemImage: watchAsset },
-      { id: "f27", aspect: "aspect-[3/5]", type: "tall", itemImage: watchAsset },
+      { id: "f24", aspect: "aspect-[3/4]", type: "tall", itemImage: Comic2 },
+      { id: "f25", aspect: "aspect-square", type: "square", itemImage: Coin2},
+      { id: "f26", aspect: "aspect-[4/3]", type: "wide", itemImage: Gloves },
+      { id: "f27", aspect: "aspect-[3/5]", type: "tall", itemImage:  Maps},
     ]
   }
 ];
@@ -159,6 +184,9 @@ const localUpcomingAuctions = [
 export default function UpcomingAuctions() {
   const [selectedAuction, setSelectedAuction] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  
+  // State for image popup light-box
+  const [popupImage, setPopupImage] = useState(null);
 
   const triggerBidModal = (auction) => {
     setSelectedAuction(auction);
@@ -238,28 +266,28 @@ export default function UpcomingAuctions() {
 
                 <button 
                   onClick={() => triggerBidModal(auction)}
-                  className="w-full bg-[#E3002A] hover:bg-neutral-900 text-white font-sans text-xs md:text-sm font-semibold py-3 px-4 rounded-sm transition-colors duration-200 text-center shadow-xs"
+                  className="w-full bg-[#8B1E2F] hover:bg-neutral-900 text-white font-sans text-xs md:text-sm font-semibold py-3 px-4 rounded-sm transition-colors duration-200 text-center shadow-xs cursor-pointer"
                 >
                   {auction.isTimed ? "View Items" : "Enter Live Auction"}
                 </button>
 
                 <button 
                   onClick={() => triggerBidModal(auction)}
-                  className="font-sans text-xs md:text-sm text-blue-600 hover:text-blue-800 hover:underline pt-0.5 self-start md:self-auto"
+                  className="font-sans text-xs md:text-sm text-blue-600 hover:text-blue-800 hover:underline pt-0.5 self-start md:self-auto cursor-pointer"
                 >
                   Register to bid
                 </button>
               </div>
 
-              {/* 4. THE ASSETS THUMBNAIL TRACK */}
+              {/* 4. THE ASSETS THUMBNAIL TRACK (INCREASED SIZES & CLICK EVENT ADDED) */}
               <div className="order-3 md:order-0 md:col-start-2 md:col-span-2 md:row-start-2 mt-4 relative w-full">
-                <div className="flex items-end gap-10 overflow-x-auto pb-3 pt-2 scrollbar-none snap-x">
+                <div className="flex items-end gap-6 overflow-x-auto pb-3 pt-2 scrollbar-none snap-x">
                   {auction.featuredItems.map((item) => (
                     <div 
                       key={item.id} 
                       className="flex flex-col items-start shrink-0 relative group snap-start"
                     >
-                      {/* RENDER DYNAMIC ANIMATED TAGS ONLY ON SPECIFIC DESIGNATED ROWS */}
+                      {/* RENDER DYNAMIC ANIMATED TAGS */}
                       {auction.tagType === "lively-featured" && (
                         <span className="bg-[#B37D14] text-white text-[9px] font-serif italic font-semibold px-2 py-0.5 rounded-t-xs tracking-wide select-none shadow-xs relative overflow-hidden animate-pulse">
                           Featured Lot 
@@ -274,16 +302,19 @@ export default function UpcomingAuctions() {
 
                       {!auction.tagType && <div className="h-4" />}
 
-                      {/* Dynamic Sizing Shape Box Base */}
-                      <div className={`h-16.25 md:h-18.75 ${item.aspect} bg-neutral-50 border border-neutral-200 p-1 flex items-center justify-center hover:border-neutral-800 transition-colors shadow-2xs cursor-pointer`}>
+                      {/* Dynamic Sizing Shape Box Base - SIZED UP to h-24 / md:h-28 */}
+                      <div 
+                        onClick={() => setPopupImage(item.itemImage)}
+                        className={`h-24 md:h-28 ${item.aspect} bg-neutral-50 border border-neutral-200 p-1 flex items-center justify-center hover:border-[#8B1E2F] transition-colors shadow-xs cursor-pointer overflow-hidden rounded-xs`}
+                      >
                         {item.itemImage ? (
                           <img 
                             src={item.itemImage} 
                             alt="Featured item lot thumbnail" 
-                            className="w-full h-full object-cover "
+                            className="w-full h-full object-cover hover:scale-105 transition-transform duration-200"
                           />
                         ) : (
-                          <div className="w-full h-full bg-neutral-200/60 rounded-xs flex items-center justify-center text-[9px] font-sans font-light text-neutral-400 capitalize px-2 text-center">
+                          <div className="w-full h-full bg-neutral-200/60 rounded-xs flex items-center justify-center text-[10px] font-sans font-light text-neutral-400 capitalize px-2 text-center">
                             {item.type}
                           </div>
                         )}
@@ -305,6 +336,29 @@ export default function UpcomingAuctions() {
         </div>
 
       </div>
+
+      {/* RENDER DYNAMIC IMAGE POPUP LIGHTBOX */}
+      {popupImage && (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-xs p-4 transition-opacity duration-300"
+          onClick={() => setPopupImage(null)}
+        >
+          <div className="relative max-w-3xl max-h-[85vh] flex items-center justify-center">
+            <button 
+              className="absolute -top-12 right-0 text-white hover:text-neutral-300 text-3xl font-sans focus:outline-none transition-colors"
+              onClick={() => setPopupImage(null)}
+            >
+              ✕
+            </button>
+            <img 
+              src={popupImage} 
+              alt="Expanded lot view" 
+              className="max-w-full max-h-[80vh] object-contain rounded-sm shadow-2xl border border-neutral-800"
+              onClick={(e) => e.stopPropagation()} // Prevents clicking the image itself from closing modal
+            />
+          </div>
+        </div>
+      )}
 
       <BidModal 
         isOpen={isModalOpen} 
